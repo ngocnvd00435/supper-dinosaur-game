@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <!-- <link rel="preload" as="font" href="assets/font/shouldve-known.ttf" type="font/ttf"/> -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #222;
+            color: #eee;
+            font: caption;
+        }
+
+        @font-face {
+            font-family: ShouldveKnown;
+            src: url('./assets/font/shouldve-known.ttf');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: nyala;
+            src: url('./assets/font/nyala.ttf');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: VINERITC;
+            src: url('./assets/font/VINERITC.TTF');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: URWAlbireoTMed;
+            src: url('./assets/font/URWAlbireoTMed.ttf');
+            font-weight: normal;
+        }
+    </style>
+    <title>Supper Puzzle Game Board</title>
+</head>
+<body translate="no">
+<!-- <div style="font-family: ShouldveKnown,serif; position:absolute; left:-1000px; visibility:hidden;">.</div>
+<div style="font-family: nyala,serif; position:absolute; left:-1000px; visibility:hidden;">.</div>
+<div style="font-family: VINERITC,serif; position:absolute; left:-1000px; visibility:hidden;">.</div>
+<div style="font-family: URWAlbireoTMed,serif; position:absolute; left:-1000px; visibility:hidden;">.</div> -->
+<script src='https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js'></script>
+<!--IMPORT EASYSTAR.JS LIB-->
+<!-- <script src="js/libs/easystar-0.4.4.min.js" ></script> -->
+<script id="rendered-js" type="module">
+
+    import {Config} from "./js/configs/Config.js";
+
+    const config = Config();
+    const game = new Phaser.Game(config);
+    window.game = game;
+</script>
+</body>
+</html>
