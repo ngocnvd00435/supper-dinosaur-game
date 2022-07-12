@@ -19,6 +19,11 @@ class GameScene extends Phaser.Scene {
             frameHeight: 250
         });
 
+        this.load.spritesheet('rocks', '/assets/background/rocks.png', {
+            frameWidth: 1260 / 7,
+            frameHeight: 180
+          })
+
         // this.load.image('street', '/assets/background/street-background.png');
         this.load.image('background', '/assets/background/game-background.png');
         this.load.image('street', '/assets/background/test1.png');
@@ -28,6 +33,12 @@ class GameScene extends Phaser.Scene {
     init() {
         this.action = true;
         this.isRun = true;
+        this.count =0,this.point = 0;
+        this.speedGame = {
+            layer1 : 60,
+            layer2 : 4,
+            layer3 : 4,
+        }
     }
 
 
@@ -43,14 +54,35 @@ class GameScene extends Phaser.Scene {
         // this.createPlayer(700,400,"jump",16,15);
         this.createStreet();
         // this.listenKeyBord();
+
+        this.rock = this.buildRandomRocks();
+
+        this.textPoint = this.add.text(1100, 10, this.point, {
+            fontSize: "24px"
+        });
     }
 
     update() {
+        this.count += 1;
+        if (this.count % 50 == 0) {
+            this.point +=  1;
+            this.textPoint.setText(this.point);
+            this.textPoint.x = 1200 - this.textPoint.width;
+
+        }
+        if (this.count % 300 == 0) {
+            this.speedGame.layer1 +=  1;
+        }
+
         if (this.action) {
             this.moveStreet();
         }
         // this.platforms.x -= 4;
         this.listenKeyBord();
+        if (this.rock.x < -180) {
+            this.randomRock();
+            this.rock.x = 1300;
+        }
     }
 
     listenKeyBord() {
@@ -114,20 +146,39 @@ class GameScene extends Phaser.Scene {
     }
 
     moveStreet() {
-        this.street1.x -= 4;
-        this.street2.x -= 4;
+        this.street1.x -= this.speedGame.layer1/10;
+        this.street2.x -= this.speedGame.layer1/10;
+
+        if (this.rock) {
+            this.rock.x -= this.speedGame.layer1/10;
+        }
 
         if (this.street1.x <= -this.street1.width) {
-            this.street1.x = 1300;
-            console.log(new Date().getTime());
-
-
+            this.street1.x = this.street2.x + this.street2.width;
         }
         if (this.street2.x <= -this.street2.width) {
-            this.street2.x = 1300;
-
-            console.log(new Date().getTime());
+            this.street2.x = this.street1.x + this.street1.width;
         }
+    }
+
+    buildRandomRocks() {
+        const frameId = this.randomIntFromInterval(0, 6);
+        const rock = this.physics.add.image(1300, 565, 'rocks', frameId).setDepth(0);
+        rock.body.setAllowGravity(false);
+        return rock
+    
+    }
+
+    randomRock(){
+        const frameId = this.randomIntFromInterval(0, 6);
+        this.rock.setTexture('rocks', frameId);
+    }
+
+
+
+    //utils
+    randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
 }
