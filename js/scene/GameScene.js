@@ -54,7 +54,7 @@ class GameScene extends Phaser.Scene {
     }
 
     listenKeyBord() {
-        // console.log("1",this.monster.body.touching.down);
+    
         
        var  cursors = this.input.keyboard.createCursorKeys();
 
